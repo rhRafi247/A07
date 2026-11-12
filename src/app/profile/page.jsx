@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { authClient, signOut } from "@/lib/auth-client";
+import { authClient, signOut, updateUser } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -35,25 +35,21 @@ export default function ProfilePage() {
   const [userName, setUserName] = useState("Rezwan Ahmed");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {};
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
+    const data = Object.fromEntries(formData.entries());
 
-    const trimmedName = data.name?.trim();
-    if (trimmedName) {
-      setUserName(trimmedName);
-      setStatusMessage("তথ্য সফলভাবে আপডেট করা হয়েছে।");
-      e.currentTarget.reset();
-    }
-  };
+    const resData = await updateUser({
+      name: data.name
+    })
+    
 
   
-const { data: session } = authClient.useSession()
-console.log(session)
+  };
+
+  const { data: session } = authClient.useSession();
+  console.log(session);
 
   return (
     <div className="min-h-screen bg-[#F0F5F0] px-4 py-12">
@@ -93,7 +89,7 @@ console.log(session)
             type="button"
             variant="outline"
             className="h-9.5 md:h-9.5 self-start sm:self-auto rounded-xl border border-[#E79A9A] [--button-bg:#ffffff] [--button-bg-hover:#FEF2F2] [--button-bg-pressed:#FEE2E2] [--button-fg:#DC2626] px-4 text-sm font-medium"
-            onClick={()=>signOut()}
+            onClick={() => signOut()}
           >
             <SignOutIcon />
             <span>সাইন আউট</span>
