@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -50,6 +51,10 @@ export default function ProfilePage() {
     }
   };
 
+  
+const { data: session } = authClient.useSession()
+console.log(session)
+
   return (
     <div className="min-h-screen bg-[#F0F5F0] px-4 py-12">
       <div className="mx-auto w-full max-w-[760px]">
@@ -76,10 +81,10 @@ export default function ProfilePage() {
 
             <div>
               <h2 className="text-lg font-bold text-[#181C1F] leading-snug">
-                {userName}
+                {session?.user.name}
               </h2>
               <p className="mt-0.5 text-sm text-[#6B7280]">
-                rezwanahmed@gmail.com
+                {session?.user.email}
               </p>
             </div>
           </div>
@@ -114,7 +119,10 @@ export default function ProfilePage() {
               }}
             >
               <Label className="text-sm font-medium text-[#22272B]">নাম</Label>
-              <Input className="w-full rounded-xl border border-[#E2E6E2] bg-white px-4 py-3 text-sm text-[#181C1F] shadow-none [--field-border:#E2E6E2] [--field-border-hover:#CBD5CB] [--field-border-focus:#008C3A]" placeholder="আপনার নাম লিখুন"/>
+              <Input
+                className="w-full rounded-xl border border-[#E2E6E2] bg-white px-4 py-3 text-sm text-[#181C1F] shadow-none [--field-border:#E2E6E2] [--field-border-hover:#CBD5CB] [--field-border-focus:#008C3A]"
+                placeholder="আপনার নাম লিখুন"
+              />
               <FieldError className="text-xs text-red-600" />
             </TextField>
 

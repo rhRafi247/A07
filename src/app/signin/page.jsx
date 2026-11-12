@@ -9,6 +9,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { signIn } from "@/lib/auth-client";
 
 function GoogleIcon() {
   return (
@@ -57,15 +58,18 @@ const inputClassName =
 const labelClassName = "text-sm font-medium text-[#22272B]";
 
 export default function SignIn() {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {};
-    // Convert FormData to plain object
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
+    const data = Object.fromEntries(formData.entries());
+
+    const { data: resData, error } = await signIn.email({
+      email: data.email,
+      password: data.password,
+      callbackURL: "/",
     });
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+    
+
   };
 
   return (
@@ -95,7 +99,10 @@ export default function SignIn() {
               }}
             >
               <Label className={labelClassName}>ইমেইল</Label>
-              <Input placeholder="you@example.com" className={inputClassName} />
+              <Input
+                placeholder="আপনার ইমেইল লিখুন"
+                className={inputClassName}
+              />
               <FieldError className="text-xs text-red-600" />
             </TextField>
 
@@ -113,10 +120,7 @@ export default function SignIn() {
               }}
             >
               <Label className={labelClassName}>পাসওয়ার্ড</Label>
-              <Input
-                placeholder="কমপক্ষে ৮ অক্ষর"
-                className={inputClassName}
-              />
+              <Input placeholder="কমপক্ষে ৮ অক্ষর" className={inputClassName} />
               <FieldError className="text-xs text-red-600" />
             </TextField>
 
@@ -178,7 +182,6 @@ export default function SignIn() {
           </Link>
         </div>
       </div>
-
     </div>
   );
 }

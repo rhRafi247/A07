@@ -9,6 +9,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { signUp } from "@/lib/auth-client";
 
 function GoogleIcon() {
   return (
@@ -59,15 +60,18 @@ const labelClassName = "text-sm font-medium text-[#22272B]";
 export default function SignUp() {
   const [passwordValue, setPasswordValue] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {};
-    // Convert FormData to plain object
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+    const data = Object.fromEntries(formData.entries());
+
+    const {data:resData, error} = await signUp.email({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      callbackURL: "/"
+    })
+    
   };
 
   return (
