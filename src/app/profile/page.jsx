@@ -102,7 +102,44 @@ console.log(session)
         <div className="mt-5 rounded-2xl border border-[#E4EAE4] bg-white p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
           <h2 className="mb-5 text-base font-bold text-[#181C1F]">তথ্য</h2>
 
-          
+          <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+            <TextField
+              isRequired
+              fullWidth
+              name="name"
+              type="text"
+              onChange={() => {
+                if (statusMessage) setStatusMessage("");
+              }}
+              validate={(value) => {
+                if (!value.trim()) {
+                  return "অনুগ্রহ করে নাম লিখুন";
+                }
+                return null;
+              }}
+            >
+              <Label className="text-sm font-medium text-[#22272B]">নাম</Label>
+              <Input
+                className="w-full rounded-xl border border-[#E2E6E2] bg-white px-4 py-3 text-sm text-[#181C1F] shadow-none [--field-border:#E2E6E2] [--field-border-hover:#CBD5CB] [--field-border-focus:#008C3A]"
+                placeholder="আপনার নাম লিখুন"
+              />
+              <FieldError className="text-xs text-red-600" />
+            </TextField>
+
+            {statusMessage && (
+              <p className="text-xs font-medium text-[#008C3A]">
+                {statusMessage}
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              className="mt-1 h-11 md:h-11 rounded-xl [--button-bg:#008C3A] [--button-bg-hover:#007530] [--button-bg-pressed:#00682A] [--button-fg:#ffffff] text-sm sm:text-[15px] font-semibold shadow-[0_6px_14px_rgba(0,140,58,0.24)]"
+            >
+              আপডেট
+            </Button>
+          </Form>
         </div>
       </div>
     </div>
