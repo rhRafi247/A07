@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { authClient } from "@/lib/auth-client";
+import { authClient, signOut } from "@/lib/auth-client";
 import {
   Button,
   FieldError,
@@ -93,6 +93,7 @@ console.log(session)
             type="button"
             variant="outline"
             className="h-9.5 md:h-9.5 self-start sm:self-auto rounded-xl border border-[#E79A9A] [--button-bg:#ffffff] [--button-bg-hover:#FEF2F2] [--button-bg-pressed:#FEE2E2] [--button-fg:#DC2626] px-4 text-sm font-medium"
+            onClick={()=>signOut()}
           >
             <SignOutIcon />
             <span>সাইন আউট</span>
