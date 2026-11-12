@@ -67,11 +67,12 @@ export default function ProfilePage() {
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-[#F3F4F6]">
               <Image
-                src="/profileImage.jpg"
+                src={session?.user?.image || "/profileImage.jpg"}
                 alt={userName}
                 width={64}
                 height={64}
                 className="h-full w-full object-cover"
+                unoptimized
               />
             </div>
 

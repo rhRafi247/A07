@@ -68,9 +68,13 @@ export default function SignIn() {
       password: data.password,
       callbackURL: "/",
     });
-    
-
   };
+
+  const handleGoogleSignIn = async()=>{
+    const data = await signIn.social({
+      provider: "google"
+    })
+  }
 
   return (
     <div className="min-h-screen bg-[#F0F5F0] flex flex-col items-center justify-center px-4 py-12">
@@ -145,6 +149,7 @@ export default function SignIn() {
               variant="outline"
               fullWidth
               className="h-10 md:h-10 rounded-xl border-[#E2E6E2] [--button-bg:#ffffff] [--button-bg-hover:#F7F9F7] [--button-bg-pressed:#EFF3EF] [--button-fg:#1F2328] px-3 text-[13px] font-medium"
+              onClick={()=>handleGoogleSignIn()}
             >
               <GoogleIcon />
               <span>Google দিয়ে চালিয়ে যান</span>

@@ -53,6 +53,7 @@ export default function UserDropdown({ user }) {
             height={36}
             alt={displayName}
             className="h-full w-full object-cover"
+            unoptimized
           />
         </div>
         <span className="font-semibold text-gray-800 text-sm sm:text-base">
