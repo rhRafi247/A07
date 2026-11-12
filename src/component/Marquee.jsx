@@ -33,7 +33,6 @@ export default async function Marquee() {
                 key={i.id}
                 className="flex items-center gap-2.5 border-r border-gray-400 pr-7 shrink-0"
               >
-                {/* পণ্যের আইকন, নাম এবং আজকের দাম */}
                 <Link href={`/product-details/${i.id}`}>
                   <span className="text-gray-800 font-medium">
                     {i.categoryIcon} {i.nameBn}{" "}
@@ -43,7 +42,6 @@ export default async function Marquee() {
                     টাকা/{unitBangla[i.unit] || i.unit}
                   </span>
 
-                  {/* দাম বাড়া/কমা আইকনসহ পার্সেন্টেজ */}
                   {i.change && (
                     <span
                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold ${

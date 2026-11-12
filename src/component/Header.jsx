@@ -2,60 +2,62 @@ import Image from "next/image";
 import React from "react";
 import Category from "./Category";
 import Link from "next/link";
-import { auth } from "@/lib/auth"; // আপনার সার্ভার auth ফাইল
+import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import UserDropdown from "./UserDropdown";
 
 export default async function Header() {
   const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
   });
 
-  // সার্ভার সাইডে সেশন চেক করার সঠিক নিয়ম
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
   return (
-    <div className="w-[80%] mx-auto">
-      <div className="flex justify-between items-center mt-3">
-        <div className="flex gap-2 items-center">
-          <Link href={"/"}>
+    <header className="w-[92%] sm:w-[88%] lg:w-[80%] mx-auto pt-3 sm:pt-4">
+      <div className="flex justify-between items-center gap-2 sm:gap-4">
+        <div className="flex gap-2 sm:gap-3 items-center min-w-0">
+          <Link href={"/"} className="shrink-0">
             <Image
               src="/logo-icon.png"
               alt="Logo"
-              width={60}
-              height={60}
-              className="bg-green-600 p-2 rounded-[10px]"
+              width={48}
+              height={48}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-green-600 p-1.5 sm:p-2 rounded-[10px]"
+              priority
             />
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold">বাজার দর</h1>
-            <p>{date}</p>
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold leading-tight truncate">
+              বাজার দর
+            </h1>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">{date}</p>
           </div>
         </div>
 
-        
-        {session?.user ? (
-          <Link href={'/profile'}>
-            <div className="flex items-center gap-3">
-              <Image src={"/profileImage.jpg"} width={100} height={100} alt="Profile Image"/>
-              <span className="font-semibold text-gray-800">
-                {session.user.name}
-              </span>
+        <div className="shrink-0">
+          {session?.user ? (
+            <UserDropdown user={session.user} />
+          ) : (
+            <div className="flex gap-2 sm:gap-3">
+              <Link href={"/signin"}>
+                <button className="btn btn-sm sm:btn-md px-3 sm:px-4 text-xs sm:text-sm">
+                  সাইন ইন
+                </button>
+              </Link>
+              <Link href={"/signup"}>
+                <button className="btn btn-sm sm:btn-md btn-success px-3 sm:px-4 text-xs sm:text-sm text-white">
+                  সাইন আপ
+                </button>
+              </Link>
             </div>
-          </Link>
-        ) : (
-          <div className="flex gap-5">
-            <Link href={"/signin"}>
-              <button className="btn">সাইন ইন</button>
-            </Link>
-            <Link href={"/signup"}>
-              <button className="btn btn-success">সাইন আপ</button>
-            </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+
       <Category />
-    </div>
+    </header>
   );
 }

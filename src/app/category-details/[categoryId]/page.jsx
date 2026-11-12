@@ -11,8 +11,8 @@ export default async function CategoryId({ params }) {
   const categoryInfo = data?.[0];
 
   return (
-    <div className="w-[80%] mx-auto pb-16">
+    <main className="w-[92%] sm:w-[88%] lg:w-[80%] mx-auto pb-16">
       <CategoryFilterSection items={data || []} categoryInfo={categoryInfo} />
-    </div>
+    </main>
   );
 }

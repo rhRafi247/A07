@@ -1,39 +1,23 @@
 import React from "react";
-import ProductCard from '@/component/ProductCard'
-
-const unitBangla = {
-  kg: "কেজি",
-  liter: "লিটার",
-  litre: "লিটার",
-  piece: "পিস",
-  pcs: "পিস",
-  dozen: "ডজন",
-  hali: "হালি",
-  gm: "গ্রাম",
-};
+import ProductCard from "@/component/ProductCard";
 
 export default async function PriceIncreased() {
   const res = await fetch(
     "https://openapi.programming-hero.com/api/bazardor/products",
   );
   const data = await res.json();
-  const filteredData = data.filter((i) => {
-    return i.change.dir === "up";
-  });
+  const filteredData = data.filter((i) => i.change?.dir === "up");
   filteredData.sort((a, b) => b.change.pct - a.change.pct);
   const topSix = filteredData.slice(0, 6);
 
-
   return (
-    <div>
-      <div className="w-[80%] mx-auto mt-10">
-        <p className="text-2xl font-bold">
-          <span className="text-red-600">▲</span> আজ দাম বেড়েছে
-        </p>
-        
-          <ProductCard items={topSix}/>
-        
+    <section className="w-[92%] sm:w-[88%] lg:w-[80%] mx-auto mt-8 sm:mt-12">
+      <div className="flex items-center gap-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+          <span className="text-red-600 mr-1.5">▲</span>আজ দাম বেড়েছে
+        </h2>
       </div>
-    </div>
+      <ProductCard items={topSix} />
+    </section>
   );
 }
