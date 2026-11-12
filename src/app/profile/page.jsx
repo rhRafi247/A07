@@ -95,7 +95,7 @@ console.log(session)
             className="h-9.5 md:h-9.5 self-start sm:self-auto rounded-xl border border-[#E79A9A] [--button-bg:#ffffff] [--button-bg-hover:#FEF2F2] [--button-bg-pressed:#FEE2E2] [--button-fg:#DC2626] px-4 text-sm font-medium"
           >
             <SignOutIcon />
-            <span>সাইন আউট পেইজ</span>
+            <span>সাইন আউট</span>
           </Button>
         </div>
 
