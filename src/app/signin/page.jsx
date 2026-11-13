@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import {
   Button,
   FieldError,
@@ -58,30 +60,48 @@ const inputClassName =
 const labelClassName = "text-sm font-medium text-[#22272B]";
 
 export default function SignIn() {
+  const router = useRouter();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    const { data: resData, error } = await signIn.email({
+    const { error } = await signIn.email({
       email: data.email,
       password: data.password,
       callbackURL: "/",
     });
+
+    if (error) {
+      toast.error(error.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
+    } else {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+      router.push("/");
+      router.refresh();
+    }
   };
 
   const handleGoogleSignIn = async () => {
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch {
+      toast.error("গুগল সাইন-ইন শুরু করতে সমস্যা হয়েছে।");
+    }
   };
 
   const handleGithubSignIn = async () => {
-    await signIn.social({
-      provider: "github",
-      callbackURL: "/",
-    });
+    try {
+      await signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+    } catch {
+      toast.error("গিটহাব সাইন-ইন শুরু করতে সমস্যা হয়েছে।");
+    }
   };
 
 

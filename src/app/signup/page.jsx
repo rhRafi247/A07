@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import {
   Button,
   FieldError,
@@ -10,7 +12,6 @@ import {
   TextField,
 } from "@heroui/react";
 import { signUp, signIn } from "@/lib/auth-client";
-import { error } from "better-auth/api";
 
 function GoogleIcon() {
   return (
@@ -60,31 +61,49 @@ const labelClassName = "text-sm font-medium text-[#22272B]";
 
 export default function SignUp() {
   const [passwordValue, setPasswordValue] = useState("");
+  const router = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    const { data: resData, error } = await signUp.email({
+    const { error } = await signUp.email({
       name: data.name,
       email: data.email,
       password: data.password,
       callbackURL: "/",
     });
+
+    if (error) {
+      toast.error(error.message || "সাইন আপ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
+    } else {
+      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+      router.push("/");
+      router.refresh();
+    }
   };
+
   const handleGoogleSignIn = async () => {
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } catch {
+      toast.error("গুগল সাইন-ইন শুরু করতে সমস্যা হয়েছে।");
+    }
   };
 
   const handleGithubSignIn = async () => {
-    await signIn.social({
-      provider: "github",
-      callbackURL: "/",
-    });
+    try {
+      await signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+    } catch {
+      toast.error("গিটহাব সাইন-ইন শুরু করতে সমস্যা হয়েছে।");
+    }
   };
 
   return (

@@ -1,18 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import DateDisplay from "./DateDisplay";
 
 export default function HomeBanner() {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
-
   return (
     <section className="w-[92%] sm:w-[88%] lg:w-[80%] mx-auto mt-6 sm:mt-8">
       <div className="p-6 sm:p-10 md:p-12 lg:p-14 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.06)] bg-white flex flex-col-reverse md:flex-row items-center justify-between gap-6 sm:gap-8">
         <div className="text-center md:text-left flex-1">
           <span className="inline-block bg-green-100 text-green-700 text-xs sm:text-sm font-semibold px-3 py-1 sm:py-1.5 rounded-full">
-            {date}
+            <DateDisplay />
           </span>
           <h1 className="mt-3 sm:mt-5 text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4 sm:mb-6 text-gray-900 leading-tight">
             আজকের বাজারের দাম এক নজরে

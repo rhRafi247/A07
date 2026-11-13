@@ -1,6 +1,8 @@
 import React from "react";
 import CategoryFilterSection from "@/component/CategoryFilterSection";
 
+export const instant = false;
+
 export default async function CategoryId({ params }) {
   const { categoryId } = await params;
 

@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { Geist, Geist_Mono, Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import Header from "@/component/Header";
 import Marquee from "@/component/Marquee";
 import Footer from "@/component/Footer";
+import ToastProvider from "@/component/ToastProvider";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["bengali", "latin"],
@@ -31,8 +33,13 @@ export default function RootLayout({ children }) {
       className={`${notoSerifBengali.className} ${geistMono.variable} ${geistSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-gray-900">
-        <Header />
-        <Marquee />
+        <ToastProvider />
+        <Suspense fallback={<div className="h-20" />}>
+          <Header />
+        </Suspense>
+        <Suspense fallback={<div className="h-10" />}>
+          <Marquee />
+        </Suspense>
         <div className="bg-[#F0F5F0] flex-1">{children}</div>
         <Footer />
       </body>

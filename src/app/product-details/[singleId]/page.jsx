@@ -13,6 +13,8 @@ const unitBangla = {
   gm: "গ্রাম",
 };
 
+export const instant = false;
+
 export default async function SingleId({ params }) {
   const { singleId } = await params;
 

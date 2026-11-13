@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { signOut } from "@/lib/auth-client";
 
 export default function UserDropdown({ user }) {
@@ -27,8 +28,10 @@ export default function UserDropdown({ user }) {
     try {
       setIsOpen(false);
       await signOut();
+      toast.success("সফলভাবে সাইন আউট হয়েছে!");
     } catch (error) {
       console.error("Sign out error:", error);
+      toast.error("সাইন আউট ব্যর্থ হয়েছে।");
     } finally {
       router.push("/signin");
       router.refresh();

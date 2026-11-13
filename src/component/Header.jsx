@@ -5,12 +5,9 @@ import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import UserDropdown from "./UserDropdown";
+import DateDisplay from "./DateDisplay";
 
 export default async function Header() {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
-
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -33,7 +30,9 @@ export default async function Header() {
             <h1 className="text-xl sm:text-2xl font-bold leading-tight truncate">
               বাজার দর
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500 truncate">{date}</p>
+            <p className="text-xs sm:text-sm text-gray-500 truncate">
+              <DateDisplay />
+            </p>
           </div>
         </div>
 

@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { authClient, signOut, updateUser } from "@/lib/auth-client";
 import {
   Button,
@@ -32,6 +34,7 @@ function SignOutIcon() {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [userName, setUserName] = useState("Rezwan Ahmed");
   const [statusMessage, setStatusMessage] = useState("");
   const [failedUrl, setFailedUrl] = useState(null);
@@ -42,10 +45,29 @@ export default function ProfilePage() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    await updateUser({
+    const { error } = await updateUser({
       name: data.name,
     });
-    setStatusMessage("তথ্য সফলভাবে আপডেট করা হয়েছে।");
+
+    if (error) {
+      toast.error(error.message || "প্রোফাইল আপডেট ব্যর্থ হয়েছে।");
+    } else {
+      setUserName(data.name);
+      toast.success("প্রোফাইলের তথ্য সফলভাবে আপডেট করা হয়েছে!");
+      setStatusMessage("তথ্য সফলভাবে আপডেট করা হয়েছে।");
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("সফলভাবে সাইন আউট হয়েছে!");
+    } catch {
+      toast.error("সাইন আউট ব্যর্থ হয়েছে।");
+    } finally {
+      router.push("/signin");
+      router.refresh();
+    }
   };
 
   const displayImage =
@@ -94,7 +116,7 @@ export default function ProfilePage() {
             type="button"
             variant="outline"
             className="h-9.5 md:h-9.5 self-start sm:self-auto rounded-xl border border-[#E79A9A] [--button-bg:#ffffff] [--button-bg-hover:#FEF2F2] [--button-bg-pressed:#FEE2E2] [--button-fg:#DC2626] px-4 text-sm font-medium"
-            onClick={() => signOut()}
+            onClick={handleSignOut}
           >
             <SignOutIcon />
             <span>সাইন আউট</span>
