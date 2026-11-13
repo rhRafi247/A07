@@ -34,22 +34,24 @@ function SignOutIcon() {
 export default function ProfilePage() {
   const [userName, setUserName] = useState("Rezwan Ahmed");
   const [statusMessage, setStatusMessage] = useState("");
+  const [failedUrl, setFailedUrl] = useState(null);
+  const { data: session } = authClient.useSession();
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    const resData = await updateUser({
-      name: data.name
-    })
-    
-
-  
+    await updateUser({
+      name: data.name,
+    });
+    setStatusMessage("তথ্য সফলভাবে আপডেট করা হয়েছে।");
   };
 
-  const { data: session } = authClient.useSession();
-  console.log(session);
+  const displayImage =
+    session?.user?.image && failedUrl !== session.user.image
+      ? session.user.image
+      : "/profileImage.jpg";
 
   return (
     <div className="min-h-screen bg-[#F0F5F0] px-4 py-12">
@@ -67,21 +69,23 @@ export default function ProfilePage() {
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-[#F3F4F6]">
               <Image
-                src={session?.user?.image || "/profileImage.jpg"}
+                src={displayImage}
                 alt={userName}
                 width={64}
                 height={64}
                 className="h-full w-full object-cover"
+                onError={() => setFailedUrl(session?.user?.image)}
+                referrerPolicy="no-referrer"
                 unoptimized
               />
             </div>
 
             <div>
               <h2 className="text-lg font-bold text-[#181C1F] leading-snug">
-                {session?.user.name}
+                {session?.user?.name || userName}
               </h2>
               <p className="mt-0.5 text-sm text-[#6B7280]">
-                {session?.user.email}
+                {session?.user?.email}
               </p>
             </div>
           </div>

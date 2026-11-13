@@ -9,7 +9,8 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { signUp } from "@/lib/auth-client";
+import { signUp, signIn } from "@/lib/auth-client";
+import { error } from "better-auth/api";
 
 function GoogleIcon() {
   return (
@@ -65,13 +66,25 @@ export default function SignUp() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    const {data:resData, error} = await signUp.email({
+    const { data: resData, error } = await signUp.email({
       name: data.name,
       email: data.email,
       password: data.password,
-      callbackURL: "/"
-    })
-    
+      callbackURL: "/",
+    });
+  };
+  const handleGoogleSignIn = async () => {
+    await signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+
+  const handleGithubSignIn = async () => {
+    await signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
   };
 
   return (
@@ -102,7 +115,6 @@ export default function SignUp() {
               <Input placeholder="আপনার নাম লিখুন" />
               <FieldError />
             </TextField>
-            
 
             <TextField
               isRequired
@@ -117,7 +129,10 @@ export default function SignUp() {
               }}
             >
               <Label className={labelClassName}>ইমেইল</Label>
-              <Input placeholder="আপনার ইমেইল লিখুন" className={inputClassName} />
+              <Input
+                placeholder="আপনার ইমেইল লিখুন"
+                className={inputClassName}
+              />
               <FieldError className="text-xs text-red-600" />
             </TextField>
 
@@ -179,6 +194,7 @@ export default function SignUp() {
               variant="outline"
               fullWidth
               className="h-10 md:h-10 rounded-xl border-[#E2E6E2] [--button-bg:#ffffff] [--button-bg-hover:#F7F9F7] [--button-bg-pressed:#EFF3EF] [--button-fg:#1F2328] px-3 text-[13px] font-medium"
+              onClick={() => handleGoogleSignIn()}
             >
               <GoogleIcon />
               <span>Google দিয়ে চালিয়ে যান</span>
@@ -189,6 +205,7 @@ export default function SignUp() {
               variant="outline"
               fullWidth
               className="h-10 md:h-10 rounded-xl border-[#E2E6E2] [--button-bg:#ffffff] [--button-bg-hover:#F7F9F7] [--button-bg-pressed:#EFF3EF] [--button-fg:#1F2328] px-3 text-[13px] font-medium"
+              onClick={() => handleGithubSignIn()}
             >
               <GitHubIcon />
               <span>GitHub দিয়ে চালিয়ে যান</span>

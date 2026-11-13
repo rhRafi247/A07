@@ -7,6 +7,7 @@ import { signOut } from "@/lib/auth-client";
 
 export default function UserDropdown({ user }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [failedUrl, setFailedUrl] = useState(null);
   const dropdownRef = useRef(null);
   const router = useRouter();
 
@@ -35,7 +36,8 @@ export default function UserDropdown({ user }) {
   };
 
   const displayName = user?.name || "ইউজার";
-  const displayImage = user?.image || "/profileImage.jpg";
+  const displayImage =
+    user?.image && failedUrl !== user.image ? user.image : "/profileImage.jpg";
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -53,6 +55,8 @@ export default function UserDropdown({ user }) {
             height={36}
             alt={displayName}
             className="h-full w-full object-cover"
+            onError={() => setFailedUrl(user?.image)}
+            referrerPolicy="no-referrer"
             unoptimized
           />
         </div>

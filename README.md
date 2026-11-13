@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛒 বাজার দর / BazarDor
 
-## Getting Started
+> নিত্যপ্রয়োজনীয় পণ্যের দৈনন্দিন বাজারদর, হ্রাস-বৃদ্ধির তুলনামূলক চিত্র এবং বাজারভিত্তিক যাচাইয়ের আধুনিক প্ল্যাটফর্ম।  
+> **A modern daily commodity price tracking and market comparison web application.**
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📌 প্রজেক্ট পরিচিতি (Project Overview)
+
+**বাজার দর (BazarDor)** হলো একটি আধুনিক ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন, যার মাধ্যমে সাধারণ ভোক্তারা প্রতিদিনের চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার সঠিক বাজারদর এক নজরে জানতে পারবেন। বিভিন্ন বাজারের গড়, সর্বনিম্ন ও সর্বাধিক দাম তুলনা করার পাশাপাশি দামের দৈনিক হ্রাস-বৃদ্ধি ট্র্যাক করা যায় সহজেই।
+
+---
+
+## ✨ ৫টি প্রধান বৈশিষ্ট্য (5 Key Features)
+
+1. **📊 নিত্যপণ্যের দৈনিক বাজারদর ও লাইভ মার্কেট স্ক্রল (Daily Market Tracker & Live Marquee)**  
+   - প্রতিদিনের প্রয়োজনীয় পণ্যের হালনাগাদ দর, একক প্রতি মূল্য এবং আগের দিনের তুলনায় দামের পরিবর্তন (শতাংশ ও হ্রাস-বৃদ্ধি নির্দেশক) সহজে দেখার ব্যবস্থা।
+   - হোমপেজের শীর্ষে লাইভ স্ক্রলিং মারকুই টিকারে দাম বাড়া-কমার রিয়েল-টাইম সামারি।
+
+2. **🔍 ক্যাটাগরি ব্রাউজিং ও স্মার্ট সর্টিং (Category Navigation & Smart Sorting)**  
+   - চাল, ডাল, তেল, সবজি, মাছ, মাংস ইত্যাদির আলাদা ক্যাটাগরি পেজ।
+   - পণ্যের দাম অনুযায়ী দ্রুত খুঁজে নিতে ৩ স্তরের ফিল্টারিং: **ডিফল্ট**, **দাম: কম থেকে বেশি** এবং **দাম: বেশি থেকে কম**।
+
+3. **📈 বিস্তারিত বিশ্লেষণ ও বাজারভিত্তিক তুলনা (Detailed Price Analytics & Market Table)**  
+   - প্রতিটি পণ্যের একক পৃষ্ঠা (Single Product Page)-তে সর্বনিম্ন দাম, সর্বাধিক দাম এবং গড় দামের পরিষ্কার সারসংক্ষেপ।
+   - দেশের বিভিন্ন বিভাগ ও প্রধান প্রধান বাজারের দামের তুলনামূলক রেসপন্সিভ টেবিল।
+
+4. **🔐 নিরাপদ অথেনটিকেশন ও প্রোফাইল ব্যবস্থাপনা (Robust Authentication & User Profile)**  
+   - **Better-Auth** এবং **MongoDB** চালিত শক্তিশালী অথেনটিকেশন সিস্টেম।
+   - ইমেইল/পাসওয়ার্ড সাইন-আপ ও সাইন-ইনের পাশাপাশি **Google** এবং **GitHub** ও-অথ (OAuth) সোশ্যাল লগইন সুবিধা।
+   - লগইন অবস্থায় ইউজার ড্রপডাউন মেনু এবং প্রোফাইলের নাম ও ছবি আপডেটের ডেডিকেটেড প্রোফাইল পেজ।
+
+5. **📱 শতভাগ রেসপন্সিভ ও মোবাইল-ফ্রেন্ডলি ইন্টারফেস (Fully Responsive & Mobile-First UI)**  
+   - মোবাইল, ট্যাবলেট এবং ডেস্কটপ ডিভাইসের জন্য সম্পূর্ণ অপ্টিমাইজড।
+   - ছোট স্ক্রিনের জন্য স্মার্ট "ক্যাটাগরি সমূহ" পপআপ গ্রিড এবং স্মুথ টাচ নেভিগেশন সুবিধা।
+
+---
+
+## 🛠 ব্যবহৃত প্রযুক্তিসমূহ (Technologies Used)
+
+### Core Frontend & Framework
+- **[Next.js 16](https://nextjs.org/)** — App Router, Server Components, Turbopack
+- **[React 19](https://react.dev/)** — আধুনিক ইউজার ইন্টারফেস ও ক্লায়েন্ট স্টেট ব্যবস্থাপনা
+- **[Next Fonts](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)** — Noto Serif Bengali & Geist
+
+### UI & Styling
+- **[Tailwind CSS v4](https://tailwindcss.com/)** — ইউটিলিটি-ফার্স্ট আধুনিক সিএসএস ফ্রেমওয়ার্ক
+- **[DaisyUI v5](https://daisyui.com/)** — আকর্ষণীয় কম্পোনেন্ট সিস্টেম
+- **[HeroUI](https://heroui.com/)** (`@heroui/react`) — অ্যাক্সেসিবল ও ডাইনামিক ফর্ম ভ্যালিডেশন কম্পোনেন্টস
+
+### Backend, Database & Authentication
+- **[Better Auth](https://www.better-auth.com/)** — আধুনিক টাইপ-সেফ অথেনটিকেশন ফ্রেমওয়ার্ক (Email/Password, Google OAuth, GitHub OAuth)
+- **[MongoDB](https://www.mongodb.com/)** — ইউজার ও সেশন ডেটা সংরক্ষণ
+- **[RESTful API](https://openapi.programming-hero.com/)** — বাজারদর ও পণ্যের লাইভ ডেটা ফেচিং
+
+---
+
+
+## 📁 ফোল্ডার স্ট্রাকচার (Folder Structure)
+
+```text
+├── public/                 # স্ট্যাটিক অ্যাসেটস ও ইমেজ
+├── src/
+│   ├── app/                # Next.js App Router পেজ ও এপিআই রুট
+│   │   ├── api/auth/       # Better Auth হ্যান্ডলার
+│   │   ├── category-details/ # ক্যাটাগরিভিত্তিক পণ্য তালিকা
+│   │   ├── product-details/  # একক পণ্যের বাজারভিত্তিক বিস্তারিত
+│   │   ├── signin/         # সাইন-ইন পেজ
+│   │   ├── signup/         # সাইন-আপ পেজ
+│   │   ├── profile/        # ব্যবহারকারীর প্রোফাইল পেজ
+│   │   ├── layout.js       # রুট লেআউট (হেডার, মারকুই ও ফুটার)
+│   │   └── page.js         # হোমপেজ
+│   ├── component/          # পুনঃব্যবহারযোগ্য ইউআই কম্পোনেন্টস
+│   │   ├── Header.jsx      # হেডার ও নেভিগেশন বার
+│   │   ├── UserDropdown.jsx # ইউজার ড্রপডাউন মেনু
+│   │   ├── CategoryNav.jsx # রেসপন্সিভ ক্যাটাগরি মেনু
+│   │   ├── CategoryFilterSection.jsx # ক্যাটাগরি সর্টিং ও ফিল্টার
+│   │   ├── ProductCard.jsx # প্রোডাক্ট কার্ড কম্পোনেন্ট
+│   │   ├── HomeBanner.jsx  # হোম ব্যানার সেকশন
+│   │   ├── Marquee.jsx     # লাইভ প্রাইস ট্র্যাকার স্ক্রল
+│   │   └── Footer.jsx      # ফুটার সেকশন
+│   └── lib/
+│       ├── auth.js         # Better Auth সার্ভার কনফিগারেশন
+│       └── auth-client.js  # Better Auth ক্লায়েন্ট হুকস
+└── next.config.mjs         # Next.js কনফিগারেশন
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📄 লাইসেন্স (License)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+প্রজেক্টটি শিক্ষামূলক ও সাধারণ ব্যবহারের জন্য উন্মুক্ত।
